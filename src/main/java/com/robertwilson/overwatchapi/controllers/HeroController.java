@@ -2,18 +2,10 @@ package com.robertwilson.overwatchapi.controllers;
 
 import com.robertwilson.overwatchapi.entities.Hero;
 import com.robertwilson.overwatchapi.services.HeroService;
-import com.robertwilson.overwatchapi.utils.Paginater;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by: Robert Wilson
@@ -36,20 +28,21 @@ public class HeroController
     }
 
     @GetMapping( value = {"", "/"})
-    public ResponseEntity<?> findAll( Integer page, Integer pageSize, String direction, String... properties )
+    public ResponseEntity<?> findAll( )
     {
+        final Iterable<Hero> heroes = heroService.all();
 
-        Paginater paginationParams = new Paginater(page, pageSize, direction).invoke();
-        page = paginationParams.getPage();
-        pageSize = paginationParams.getPageSize();
-        Sort.Direction sortDirection = paginationParams.getSortDirection();
+        return ResponseEntity.ok(heroes);
+    }
 
-        properties = properties == null ? new String[]{"id"} : properties;
+    @GetMapping( value = "/{heroId}")
+    public ResponseEntity<?> getHeroById( @PathVariable("heroId") long heroId )
+    {
+        final Hero hero = heroService.single(heroId);
 
-        PageRequest pageRequest = PageRequest.of(page, pageSize, sortDirection, properties);
-
-        final Page<Hero> heroes = heroService.all(pageRequest);
-
-        return ResponseEntity.ok(heroes.get().collect(Collectors.toList()));
+        if ( hero == null ) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(hero);
     }
 }
