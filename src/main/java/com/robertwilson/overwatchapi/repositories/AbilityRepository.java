@@ -1,6 +1,6 @@
 package com.robertwilson.overwatchapi.repositories;
 
-import com.robertwilson.overwatchapi.entities.Hero;
+import com.robertwilson.overwatchapi.entities.Ability;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Date:  2019-08-28
  * Project: overwatch-api
  * Package: com.robertwilson.overwatchapi.repositories
- * Class: HeroRepository
+ * Class: AbilityRepository
  */
-public interface HeroRepository extends JpaRepository<Hero, Long>
+public interface AbilityRepository extends JpaRepository<Ability, Long>
 {
 }
