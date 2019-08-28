@@ -7,10 +7,13 @@ import com.robertwilson.overwatchapi.entities.Hero;
 import com.robertwilson.overwatchapi.services.AbilityService;
 import com.robertwilson.overwatchapi.services.HeroService;
 import com.robertwilson.overwatchapi.services.Mapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +30,7 @@ import java.util.List;
 @RestController
 @CrossOrigin( origins = "*" )
 @RequestMapping( value = "/api/v1/hero")
+@Api(value = "Hero Controller", produces = MediaType.APPLICATION_JSON_VALUE, tags = {"Hero"})
 public class HeroController
 {
     private Mapper mapper;
@@ -44,7 +48,8 @@ public class HeroController
         this.abilityService = abilityService;
     }
 
-    @GetMapping( value = {"", "/"})
+    @ApiOperation( value = "Get All Heroes", produces = "application/json", tags = "Hero" )
+    @GetMapping( value = "")
     public ResponseEntity<?> findAll( )
     {
         final Iterable<Hero> heroes = heroService.all();
@@ -56,6 +61,7 @@ public class HeroController
         return ResponseEntity.ok(response);
     }
 
+    @ApiOperation( value = "Get Hero By ID", produces = "application/json", tags = "Hero" )
     @GetMapping( value = "/{heroId}")
     public ResponseEntity<?> getHeroById( @PathVariable("heroId") long heroId )
     {
@@ -67,6 +73,7 @@ public class HeroController
         return ResponseEntity.ok(hero);
     }
 
+    @ApiOperation( value = "Get Hero Abilities", produces = "application/json", tags = "Hero" )
     @GetMapping( value = "/{heroId}/abilities")
     public ResponseEntity<?> getHeroAbilities( @PathVariable("heroId") long heroId )
     {
