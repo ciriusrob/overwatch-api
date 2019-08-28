@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * Created by: Robert Wilson
@@ -18,6 +19,9 @@ public class Ability
 {
     @Id
     private long id;
+
+    @ManyToOne( targetEntity = Hero.class)
+    private Hero hero;
 
     private String name;
 

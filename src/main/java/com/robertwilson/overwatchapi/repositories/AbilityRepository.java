@@ -3,6 +3,8 @@ package com.robertwilson.overwatchapi.repositories;
 import com.robertwilson.overwatchapi.entities.Ability;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * Created by: Robert Wilson
  * Date:  2019-08-28
@@ -12,4 +14,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface AbilityRepository extends JpaRepository<Ability, Long>
 {
+    List<Ability> findAllByHeroId( long heroId );
 }
