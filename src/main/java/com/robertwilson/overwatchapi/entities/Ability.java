@@ -2,9 +2,7 @@ package com.robertwilson.overwatchapi.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by: Robert Wilson
@@ -20,11 +18,12 @@ public class Ability
     @Id
     private long id;
 
-    @ManyToOne( targetEntity = Hero.class)
+    @ManyToOne( targetEntity = Hero.class, cascade = CascadeType.ALL)
     private Hero hero;
 
     private String name;
 
+    @Column( columnDefinition = "TEXT")
     private String description;
 
     private boolean isUltimate;

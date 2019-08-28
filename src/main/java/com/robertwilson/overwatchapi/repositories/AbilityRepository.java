@@ -1,6 +1,8 @@
 package com.robertwilson.overwatchapi.repositories;
 
 import com.robertwilson.overwatchapi.entities.Ability;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -14,5 +16,7 @@ import java.util.List;
  */
 public interface AbilityRepository extends JpaRepository<Ability, Long>
 {
+    Page<Ability> findAll( Pageable pageable );
+
     List<Ability> findAllByHeroId( long heroId );
 }

@@ -1,6 +1,8 @@
 package com.robertwilson.overwatchapi.repositories;
 
 import com.robertwilson.overwatchapi.entities.Hero;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -12,4 +14,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface HeroRepository extends JpaRepository<Hero, Long>
 {
+    Page<Hero> findAll( Pageable pageable );
 }

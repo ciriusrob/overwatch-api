@@ -1,15 +1,20 @@
 package com.robertwilson.overwatchapi.controllers;
 
+import com.robertwilson.overwatchapi.dtos.AbilityResponseDto;
+import com.robertwilson.overwatchapi.dtos.HeroResponseDto;
 import com.robertwilson.overwatchapi.entities.Ability;
 import com.robertwilson.overwatchapi.entities.Hero;
 import com.robertwilson.overwatchapi.services.AbilityService;
 import com.robertwilson.overwatchapi.services.HeroService;
+import com.robertwilson.overwatchapi.services.Mapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -24,14 +29,17 @@ import java.util.List;
 @RequestMapping( value = "/api/v1/hero")
 public class HeroController
 {
+    private Mapper mapper;
+
     private HeroService heroService;
 
     private AbilityService abilityService;
 
     @Lazy
     @Autowired
-    public HeroController( HeroService heroService, AbilityService abilityService )
+    public HeroController( Mapper mapper, HeroService heroService, AbilityService abilityService )
     {
+        this.mapper = mapper;
         this.heroService = heroService;
         this.abilityService = abilityService;
     }
@@ -41,7 +49,11 @@ public class HeroController
     {
         final Iterable<Hero> heroes = heroService.all();
 
-        return ResponseEntity.ok(heroes);
+        Type setType = new TypeToken<List<HeroResponseDto>>() {}.getType();
+
+        final List<HeroResponseDto> response = mapper.map(heroes, setType);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping( value = "/{heroId}")
@@ -60,6 +72,10 @@ public class HeroController
     {
         final List<Ability> abilities = abilityService.allByHeroId(heroId);
 
-        return ResponseEntity.ok(abilities);
+        Type setType = new TypeToken<List<AbilityResponseDto>>() {}.getType();
+
+        final List<AbilityResponseDto> response = mapper.map(abilities, setType);
+
+        return ResponseEntity.ok(response);
     }
 }

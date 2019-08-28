@@ -1,8 +1,8 @@
 package com.robertwilson.overwatchapi.controllers;
 
 import com.robertwilson.overwatchapi.entities.Ability;
-import com.robertwilson.overwatchapi.entities.Hero;
 import com.robertwilson.overwatchapi.services.AbilityService;
+import com.robertwilson.overwatchapi.services.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping( value = "/api/v1/ability")
 public class AbilityController
 {
+    private Mapper mapper;
+
     private AbilityService abilityService;
 
     @Autowired
-    public AbilityController( AbilityService abilityService )
+    public AbilityController( Mapper mapper, AbilityService abilityService )
     {
+        this.mapper = mapper;
         this.abilityService = abilityService;
     }
 

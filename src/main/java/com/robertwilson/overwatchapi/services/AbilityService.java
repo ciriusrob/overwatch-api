@@ -3,7 +3,8 @@ package com.robertwilson.overwatchapi.services;
 import com.robertwilson.overwatchapi.entities.Ability;
 import com.robertwilson.overwatchapi.repositories.AbilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,9 +32,19 @@ public class AbilityService
         return repository.findAll();
     }
 
+    public Page<Ability> all( Pageable pageable )
+    {
+        return repository.findAll(pageable);
+    }
+
     public Ability single( long id )
     {
         return repository.findById(id).orElse(null);
+    }
+
+    public List<Ability> save( List<Ability> entities )
+    {
+        return repository.saveAll(entities);
     }
 
     public List<Ability> allByHeroId( long heroId )
