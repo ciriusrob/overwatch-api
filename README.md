@@ -2,7 +2,7 @@
 
 ## Getting Started
 * Clone the project
-* CD in to the project directory
+* CD into the project directory
 * `cd overwatch-api`
 * Run the below command to install the dependencies and package a jar
 * `./mvnw clean install package`
