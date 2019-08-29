@@ -4,9 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.robertwilson.overwatchapi.entities.Ability;
-import com.robertwilson.overwatchapi.entities.Hero;
 import com.robertwilson.overwatchapi.services.AbilityService;
-import com.robertwilson.overwatchapi.services.HeroService;
 import com.robertwilson.overwatchapi.services.http_client.BaseClient;
 import com.robertwilson.overwatchapi.utils.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +28,12 @@ public class OverWatchApiApplication
 {
     private BaseClient client;
 
-    private HeroService heroService;
-
     private AbilityService abilityService;
 
     @Autowired
-    public OverWatchApiApplication( BaseClient client, HeroService heroService, AbilityService abilityService )
+    public OverWatchApiApplication( BaseClient client, AbilityService abilityService )
     {
         this.client = client;
-        this.heroService = heroService;
         this.abilityService = abilityService;
     }
 
