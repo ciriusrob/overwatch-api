@@ -1,4 +1,4 @@
-#Implementation of a Java REST service that consumes the unofficial Overwatch API.
+## Implementation of a Java REST service that consumes the unofficial Overwatch API and provides the data via it’s own REST API.
 
 ## Getting Started
 * Clone the project
