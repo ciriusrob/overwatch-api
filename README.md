@@ -4,7 +4,7 @@
 * Clone the project
 * CD in to the project directory
 * `cd overwatch-api`
-* Run the below command to install and dependencies and package a jar
+* Run the below command to install the dependencies and package a jar
 * `./mvnw clean install package`
 * Start the application be running the below command
 * `java -jar target/overwatch-api-0.0.1-SNAPSHOT.jar`
